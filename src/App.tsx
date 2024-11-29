@@ -1,18 +1,6 @@
 import { useEffect, useState } from "react";
 import Papa from "papaparse";
-
-type Activity = {
-  activity: string;
-  availability: number;
-  type: string;
-  participants: number;
-  price: number;
-  accessibility: string;
-  duration: string;
-  kidFriendly: boolean;
-  link: string;
-  key: string;
-};
+import { Activity } from "./types";
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
