@@ -1,6 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+type Activity = {
+  activity: string;
+  availability: number;
+  type: string;
+  participants: number;
+  price: number;
+  accessibility: string;
+  duration: string;
+  kidFriendly: boolean;
+  link: string;
+  key: string;
+};
 
 function App() {
+  const [activities, setActivities] = useState<Activity[]>([]);
+
   const fetchRandomActivities = async () => {
     try {
       const response = await fetch(
@@ -9,6 +24,9 @@ function App() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        setActivities(
+          Array.isArray(data.random_activity) ? data.random_activity : []
+        );
       } else {
         console.error("Failed to fetch activities:", response.statusText);
       }
@@ -21,7 +39,41 @@ function App() {
     fetchRandomActivities();
   }, []);
 
-  return <div>Initial setup: Data is being fetched...</div>;
+  return (
+    <div>
+      {" "}
+      <table>
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Availability</th>
+            <th>Type</th>
+            <th>Participants</th>
+            <th>Price</th>
+            <th>Accessibility</th>
+            <th>Duration</th>
+            <th>Kid-Friendly</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {activities.map((activity, index) => (
+            <tr key={index}>
+              <td>{activity.activity}</td>
+              <td>{activity.availability}</td>
+              <td>{activity.type}</td>
+              <td>{activity.participants}</td>
+              <td>{activity.price}</td>
+              <td>{activity.accessibility}</td>
+              <td>{activity.duration}</td>
+              <td>{activity.kidFriendly ? "Yes" : "No"}</td>
+              <td>{activity.link}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default App;
