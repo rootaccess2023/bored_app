@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Papa from "papaparse";
-import { Activity } from "./types";
+import { useActivityStore } from "./stores";
 
 function App() {
-  const [activities, setActivities] = useState<Activity[]>([]);
+  const activities = useActivityStore((state) => state.activities);
+  const setActivities = useActivityStore((state) => state.setActivities);
 
   const fetchRandomActivities = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/random_activity?count=1&format=json`
+        `http://localhost:3000/random_activity?count=15&format=json`
       );
       if (response.ok) {
         const data = await response.json();
