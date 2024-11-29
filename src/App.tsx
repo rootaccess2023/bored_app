@@ -43,6 +43,17 @@ function App() {
     console.log(activities);
   };
 
+  const downloadJSON = () => {
+    const blob = new Blob([JSON.stringify(activities, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "activities.json";
+    a.click();
+  };
+
   return (
     <div>
       {" "}
@@ -78,6 +89,7 @@ function App() {
       </table>
       <div>
         <button onClick={printToConsole}>Print to Console</button>
+        <button onClick={downloadJSON}>JSON Download</button>
       </div>
     </div>
   );
