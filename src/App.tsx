@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Papa from "papaparse";
 import { useActivityStore } from "./stores";
+import { ActivityTable } from "./components";
 
 function App() {
   const activities = useActivityStore((state) => state.activities);
@@ -55,43 +56,13 @@ function App() {
   };
 
   return (
-    <div>
-      {" "}
-      <table>
-        <thead>
-          <tr>
-            <th>Activity</th>
-            <th>Availability</th>
-            <th>Type</th>
-            <th>Participants</th>
-            <th>Price</th>
-            <th>Accessibility</th>
-            <th>Duration</th>
-            <th>Kid-Friendly</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {activities.map((activity, index) => (
-            <tr key={index}>
-              <td>{activity.activity}</td>
-              <td>{activity.availability}</td>
-              <td>{activity.type}</td>
-              <td>{activity.participants}</td>
-              <td>{activity.price}</td>
-              <td>{activity.accessibility}</td>
-              <td>{activity.duration}</td>
-              <td>{activity.kidFriendly ? "Yes" : "No"}</td>
-              <td>{activity.link}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="h-screen p-8">
       <div>
         <button onClick={printToConsole}>Print to Console</button>
         <button onClick={downloadJSON}>JSON Download</button>
         <button onClick={downloadCSV}>CSV Download</button>
       </div>
+      <ActivityTable />
     </div>
   );
 }
