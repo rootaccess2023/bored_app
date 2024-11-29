@@ -39,6 +39,10 @@ function App() {
     fetchRandomActivities();
   }, []);
 
+  const printToConsole = () => {
+    console.log(activities);
+  };
+
   return (
     <div>
       {" "}
@@ -72,6 +76,9 @@ function App() {
           ))}
         </tbody>
       </table>
+      <div>
+        <button onClick={printToConsole}>Print to Console</button>
+      </div>
     </div>
   );
 }
