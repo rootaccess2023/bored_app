@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Papa from "papaparse";
 
 type Activity = {
   activity: string;
@@ -54,6 +55,16 @@ function App() {
     a.click();
   };
 
+  const downloadCSV = () => {
+    const csv = Papa.unparse(activities);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "activities.csv";
+    a.click();
+  };
+
   return (
     <div>
       {" "}
@@ -90,6 +101,7 @@ function App() {
       <div>
         <button onClick={printToConsole}>Print to Console</button>
         <button onClick={downloadJSON}>JSON Download</button>
+        <button onClick={downloadCSV}>CSV Download</button>
       </div>
     </div>
   );
