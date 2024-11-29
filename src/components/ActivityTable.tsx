@@ -3,6 +3,8 @@ import { useActivityStore } from "../stores";
 export function ActivityTable() {
   const activities = useActivityStore((state) => state.activities);
 
+  const isLoading = !activities || activities.length === 0;
+
   return (
     <div className="h-[calc(100vh_-_100px)] overflow-y-scroll">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -38,25 +40,37 @@ export function ActivityTable() {
           </tr>
         </thead>
         <tbody className="mt-8">
-          {activities.map((activity, index) => (
-            <tr key={index} className="bg-white border-b">
-              <td className="w-full px-6 py-4">{activity.activity}</td>
-              <td className="px-6 py-4">{activity.availability}</td>
-              <td className="px-6 py-4">{activity.type}</td>
-              <td className="px-6 py-4">{activity.participants}</td>
-              <td className="px-6 py-4">{activity.price}</td>
-              <td className="px-6 py-4">{activity.accessibility}</td>
-              <td className="px-6 py-4">{activity.duration}</td>
-              <td className="px-6 py-4">
-                {activity.kidFriendly ? "Yes" : "No"}
-              </td>
-              <td className="px-6 py-4 text-blue-500 cursor-pointer">
-                <a href={activity.link} target="_blank">
-                  {activity.link}
-                </a>
+          {isLoading ? (
+            <tr className="h-[calc(100vh_-_160px)]">
+              <td colSpan={9} className="px-6 py-4 text-center">
+                Loading...
               </td>
             </tr>
-          ))}
+          ) : (
+            activities.map((activity, index) => (
+              <tr key={index} className="bg-white border-b">
+                <td className="px-6 py-4">{activity.activity}</td>
+                <td className="px-6 py-4">{activity.availability}</td>
+                <td className="px-6 py-4">{activity.type}</td>
+                <td className="px-6 py-4">{activity.participants}</td>
+                <td className="px-6 py-4">{activity.price}</td>
+                <td className="px-6 py-4">{activity.accessibility}</td>
+                <td className="px-6 py-4">{activity.duration}</td>
+                <td className="px-6 py-4">
+                  {activity.kidFriendly ? "Yes" : "No"}
+                </td>
+                <td className="px-6 py-4 text-blue-500 cursor-pointer">
+                  <a
+                    href={activity.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {activity.link}
+                  </a>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
