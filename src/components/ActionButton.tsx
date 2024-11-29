@@ -4,7 +4,7 @@ import { downloadCSV, downloadJSON, printToConsole } from "../utils";
 export function ActionButton() {
   const activities = useActivityStore((state) => state.activities);
   return (
-    <div>
+    <div className="flex justify-end">
       <button
         onClick={() => downloadCSV(activities)}
         type="button"

@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <div className="h-screen p-8">
+    <div className="h-screen w-full flex flex-col p-8">
       <ActionButton />
       <ActivityTable />
     </div>
